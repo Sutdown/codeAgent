@@ -1,5 +1,5 @@
+from __future__ import annotations
 from typing import List, Dict, Any, Optional
-
 from clients.base_client import LLMError, BaseClient
 import requests
 
@@ -8,7 +8,7 @@ class DeepSeekError(LLMError):
     DeepSeek API错误
     """
 
-class DeepseekClient(BaseClient):
+class DeepSeekClient(BaseClient):
     """
     DeepSeek API客户端
     """
