@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "enabled": true
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "UPSTASH_API_KEY": "a34db119-e22b-4861-859d-e5fb8af2cd32"
+      },
+      "enabled": true
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem@latest"
+      ],
+      "enabled": false
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite@latest"
+      ],
+      "enabled": false
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import unittest
-from typing import List, Dict
 from memory.context_compressor import ContextCompressor  # 正确导入模块
 
 
