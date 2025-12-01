@@ -53,7 +53,8 @@ class TaskPlanner:
 
         注意：
         - action 必须是可用工具列表中的工具名称
-        - 最后一步应该是 "task_complete"
+        - 必须严格保证最后一步是 "task_complete"
+        - 当所有任务目标达成后，必须调用 "task_complete" 工具
         - 保持计划简洁高效，避免不必要的步骤
         """
         messages = [{"role" : "user", "content": prompt}]

@@ -39,7 +39,7 @@ class MCPManager:
             print(f"⚠️ MCP 服务器 '{name}' 已在运行中")
             return True
 
-        server_config = self.config.get_server_config(name)
+        server_config = self.config.servers.get(name)
         if not server_config:
             print(f"❌ 未找到 MCP 服务器配置：{name}")
             return False

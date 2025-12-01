@@ -27,7 +27,7 @@ class ReActAgent:
             client: BaseClient,
             tools : List[Tool],
             *,
-            max_steps: int = 200,
+            max_steps: int = 5,
             temperature: float = 0.0,
             system_prompt: Optional[str] = None,
             step_callback: Optional[Callable[[int, Step], None]] = None,  # 步骤回调函数

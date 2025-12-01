@@ -403,7 +403,6 @@ def interactive_mode(config: Config) -> int:
         mcp_manager.stop_all()
         print(f"{Fore.GREEN}✓ MCP 服务器已关闭{Style.RESET_ALL}")
 
-
 def main() -> int:
     """主入口函数"""
     load_dotenv()
