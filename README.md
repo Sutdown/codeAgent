@@ -22,7 +22,7 @@ agent有三种基本架构：ReAct，plan and solve，reflection三种模式。
 
 
 
-##### client
+## client
 
 ```txt
 client
@@ -32,7 +32,7 @@ client
 		- chat：send_recv and extract_txt
 ```
 
-##### tools
+## tools
 
 核心工具模块，提供了智能体（Agent）可调用的各类工具函数，支持文件操作、代码执行、代码分析等核心功能，是智能体与外部环境交互的主要接口。
 
@@ -55,7 +55,7 @@ code_analysis_tools
 	- get_code_metrics       获取代码度量信息
 ```
 
-##### prompt
+## prompt
 
 提示词的基本要素在于：指令（模型需要执行的任务或命令），上下文（包含的外部信息或者额外的上下文信息），输入数据，输出指示。
 
@@ -67,7 +67,7 @@ code_analysis_tools
 - 动态上下文（memory）
 - 少样本提示
 
-##### memory
+## memory
 
 ```txt
 context_compressor
@@ -77,7 +77,7 @@ context_compressor
 	- get_compression_status   获取压缩信息（原信息，压缩后信息，压缩率，节省的消息数量）
 ```
 
-##### mcp
+## mcp
 
 Model Context Protocol 是一个开放协议，它规范了应用程序如何为 LLMs 提供上下文。可以将 MCP 想象为 AI 应用的 USB-C 端口。就像 USB-C 提供了一种标准方式，让你的设备连接到各种外设和配件，MCP 也提供了一种标准方式，让你的 AI 模型连接到不同的数据源和工具。
 
@@ -119,7 +119,7 @@ config中存在所有的服务器配置信息，clients中存在所有服务器�
 
 _tools_cache中存储着当前可用的工具，工具中的运行函数需要在manager中写，因为是通过client中的通信运行工具的。同时当服务器信息发生变更时，需要同步更新工具信息。
 
-##### core
+## core
 
 re-act agent 运行流程。ReAct 框架为单步单动作循环逻辑，多动作场景会通过拆分为多个步骤来处理，而非在单个步骤中包含多个 `action`。
 
