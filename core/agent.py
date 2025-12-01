@@ -102,7 +102,6 @@ class ReActAgent:
 
             # 获取 AI 响应
             raw = self.client.chat(messages_to_send, temperature=self.temperature)
-            self.conversation_history.append({"role": "assistant", "content": raw})
 
             # 将 AI 响应添加到历史记录
             self.conversation_history.append({"role": "assistant", "content": raw})
