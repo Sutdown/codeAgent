@@ -1,6 +1,10 @@
 # Code Agent
 
+基本分为：client，tools，memory，prompt，mcp，react agent四个部分，最终进行整合。
+
 agent有三种基本架构：ReAct，plan and solve，reflection三种模式。
+
+当前采用的是ReaAct架构，即边思考边行动。首先对于给出的问题利用planner进行分析规划成3-8个具体的步骤（每个步骤中包含具体的推理和行动），在每个步骤中利用现有的tools或者mcp进行执行，同时会memory上一个步骤中的结果，为了节省token，也会对整体内容进行compressor。
 
 - **ReAct (Reasoning and Acting)：** 一种将“思考”和“行动”紧密结合的范式，让智能体边想边做，动态调整。
 
@@ -13,6 +17,9 @@ agent有三种基本架构：ReAct，plan and solve，reflection三种模式。
 - **Reflection：** 一种赋予智能体“反思”能力的范式，通过自我批判和修正来优化结果。
 
   先完成整个问题，再审视前面的结果进行反思，常见会通过 ”事实错误，逻辑漏洞，效率问题，遗漏信息等“ 多个常见的不同角度进行反思，对初稿进行反复修改，形成更完善的修订稿。
+
+每个具体的步骤有一个共同的system prompt和不同的user prompt，user prompt会结合当前任务描述，上个步骤的思考行动输入观察，以及当前的执行计划生成。
+
 
 
 ##### client
@@ -111,4 +118,20 @@ config中存在所有的服务器配置信息，clients中存在所有服务器�
 启用和关闭服务器都是先通过config确认配置信息，之后通过client启用or关闭
 
 _tools_cache中存储着当前可用的工具，工具中的运行函数需要在manager中写，因为是通过client中的通信运行工具的。同时当服务器信息发生变更时，需要同步更新工具信息。
+
+##### core
+
+re-act agent 运行流程。ReAct 框架为单步单动作循环逻辑，多动作场景会通过拆分为多个步骤来处理，而非在单个步骤中包含多个 `action`。
+
+1 通过规划器生成流程。planner中的变量包括：step_number, action, reason, completed, result
+
+2 每个步骤都需要调用LLM API，压缩器，prompt，每个步骤具体过程如下：
+
+- system prompt + user prompt（包括planner生成的计划完成情况，ai对上一步生成的step，上一步执行工具后的返回结果）
+- 调用API执行当前步骤得到返回结果，返回结果中存在 thought, action, action_input。
+- 将返回结果的action input通过action执行得到观察结果observation
+- 回调实时输出步骤
+- 异常情况：1 调用api错误，直接记录当前error，重新规划。2 action为已完成时，可以直接return。3 检查工具是否正确，不对则重新规划当前步骤
+
+
 
